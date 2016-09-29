@@ -5,6 +5,8 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import java.net.*;
+import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
 
@@ -18,6 +20,9 @@ public class Main extends AppCompatActivity {
 
         //Accessing the internet
         Log.d("TAG","Are you connected? "+isConnectedOnline());
+        ArrayList<Questions> questionList = new AsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+
+
     }
     //Check connection to internet
     private boolean isConnectedOnline(){

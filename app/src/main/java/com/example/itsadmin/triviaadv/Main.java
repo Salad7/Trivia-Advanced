@@ -5,15 +5,27 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.net.*;
 import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
 
+  private TextView textTV;
+    private TextView idTV;
+    private ArrayList<Questions> details;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textTV = (TextView) findViewById(R.id.text);
+        idTV = (TextView) findViewById(R.id.id);
+
+
 
         //Establish HTTP client to service that returns a questions array
         //Each question contains, a text and a choices element
@@ -22,7 +34,8 @@ public class Main extends AppCompatActivity {
         Log.d("TAG","Are you connected? "+isConnectedOnline());
        new AsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
 
-
+        //textTV.setText(AsyncTaskThread.details.get(0).getText());
+        idTV.setText(QuestionsJSONParserUtil.d.get(0).getId());
     }
     //Check connection to internet
     private boolean isConnectedOnline(){

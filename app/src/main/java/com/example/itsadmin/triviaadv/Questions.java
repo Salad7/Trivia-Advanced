@@ -3,12 +3,13 @@ package com.example.itsadmin.triviaadv;
 import android.graphics.Bitmap;
 import android.media.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by itsadmin on 9/28/2016.
  */
-public class Questions {
+public class Questions implements Serializable{
 
     private int id;
     private String text;
@@ -58,8 +59,8 @@ public class Questions {
         this.choices = choices;
     }
 
-    public void setImage(Bitmap b)
+    public void setImage(String parseImage)
     {
-         image = b;
+         //image = b;
     }
 }

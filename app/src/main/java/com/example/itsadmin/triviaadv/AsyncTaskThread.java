@@ -1,33 +1,42 @@
 package com.example.itsadmin.triviaadv;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
-import android.os.health.PackageHealthStats;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by itsadmin on 9/28/2016.
  */
-public class AsyncTaskThread extends AsyncTask<String, Void, String> {
+public class AsyncTaskThread extends AsyncTask<String, Void, ArrayList<Questions>> {
+
+    ProgressDialog progressDialog;
+    ICommuncateWithAsync mContext;
 
 
-    AsyncTaskThread()
+    AsyncTaskThread(ICommuncateWithAsync context)
     {
+    mContext = context;
+    }
 
+    @Override
+    protected void onPreExecute(){
+        super.onPreExecute();
+        progressDialog = new ProgressDialog(mContext.getContext());
+        progressDialog.setMessage("Loading trivia");
+        progressDialog.show();
     }
 
     //To parse a JSON file
     //Load whole file into a string
     //Use JSONArray class to parse the jsonstring into jsonarray or jsonobjects
     @Override
-    protected String doInBackground(String...params)
+    protected ArrayList<Questions> doInBackground(String...params)
     {
         try {
             //Arraylist of a strings
@@ -45,7 +54,7 @@ public class AsyncTaskThread extends AsyncTask<String, Void, String> {
                   sb.append(line+"\n");
                 }
                 reader.close();
-                return  sb.toString();
+                return  QuestionsJSONParserUtil.parseQuestions(sb.toString());
             }
             //con.getInputStream(); //Opens connection
             //BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -62,11 +71,22 @@ public class AsyncTaskThread extends AsyncTask<String, Void, String> {
         return null;
     }
 
+
+
     @Override
-    protected void onPostExecute(String result){
-        Log.d("demo",result);
+    protected void onPostExecute(ArrayList<Questions> questionses) {
+        super.onPostExecute(questionses);
+
     }
 
+    @Override
+    protected  void onProgressUpdate(Void... values)
+    {
+        super.onProgressUpdate(values);
+    }
 
-
+    public static interface ICommuncateWithAsync{
+        public Context getContext();
+        public void sendData(ArrayList<Questions> result);
+    }
 }

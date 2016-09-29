@@ -1,5 +1,7 @@
 package com.example.itsadmin.triviaadv;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,9 +12,9 @@ import java.util.ArrayList;
  */
 public class QuestionsJSONParserUtil {
 
-
+    static ArrayList<Questions> questionList = new ArrayList<>();
     static ArrayList<Questions> parseQuestions(String in) throws Exception {
-        ArrayList<Questions> questionList = new ArrayList<Questions>();
+
 
         JSONObject root = new JSONObject(in);
         Questions question = new Questions();
@@ -28,20 +30,25 @@ public class QuestionsJSONParserUtil {
 
             question.setText(questionJSONObject.getString("text"));
             question.setId(questionJSONObject.getInt("id"));
+            if(questionJSONObject.has("image"))
+                question.setImage(questionJSONObject.getString("image"));
+
             String[] choicesArray = choice.toString().substring(1,(choice.toString()).length()-1).replace("},{", ",").split(",");
             for(int j = 0; j < choicesArray.length; j++) {
                 choicesArray[j] = choicesArray[j].substring(1,choicesArray[j].length()-1);
             }
             question.setChoices(choicesArray);
+
+
+
             question.setAnswer(choices.getString("answer"));
 
-
-           // question.setChoices(root.optString("choices"));
+            Log.d("Number",question.getText());
             questionList.add(question);
-            //question.setImage(questionJSONObject.get("image"));
-            //question.setChoices(questionJSONObject.get("choices"));
-        }
 
+
+        }
+        Log.d("",questionList.get(5).getText());
     return questionList;
 
 

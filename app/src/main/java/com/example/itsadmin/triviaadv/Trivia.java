@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     private TextView choicesTV2;
     private TextView choicesTV3;
     private  TextView choicesTV4;
+    private ImageView iv;
     private int questionNum;
 
     @Override
@@ -36,6 +38,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
         choicesTV2 = (TextView) findViewById(R.id.choice2);
         choicesTV3 = (TextView) findViewById(R.id.choice3);
         choicesTV4 = (TextView) findViewById(R.id.choice4);
+        iv = (ImageView) findViewById(R.id.imageView);
         questionNum = 0;
 
 
@@ -69,37 +72,40 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     public void sendData(ArrayList<Questions> result)
     {
         details = result;
-        textTV.setText(result.get(0).getText());
-        idBtn.setText("Q"+result.get(0).getId());
-        for(int i = 0; i < 4; i++) {
-            choicesTV1.setText(result.get(0).getChoices()[0]);
+        textTV.setText(result.get(questionNum).getText());
+        idBtn.setText("Q"+result.get(questionNum).getId());
+        //for(int i = 0; i < 4; i++) {
+            choicesTV1.setText(result.get(questionNum).getChoices()[0]);
                 choicesTV1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 });
-            choicesTV2.setText(result.get(0).getChoices()[1]);
-            choicesTV1.setOnClickListener(new View.OnClickListener() {
+            choicesTV2.setText(result.get(questionNum).getChoices()[1]);
+            choicesTV2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-            choicesTV3.setText(result.get(0).getChoices()[2]);
-            choicesTV1.setOnClickListener(new View.OnClickListener() {
+            choicesTV3.setText(result.get(questionNum).getChoices()[2]);
+            choicesTV3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-            choicesTV4.setText(result.get(0).getChoices()[3]);
-            choicesTV1.setOnClickListener(new View.OnClickListener() {
+            choicesTV4.setText(result.get(questionNum).getChoices()[3]);
+            choicesTV4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
+
+        iv.setImageBitmap(result.get(questionNum).getImage());
         }
-    }
+
+    //}
 }

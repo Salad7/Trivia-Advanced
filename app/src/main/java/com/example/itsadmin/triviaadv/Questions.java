@@ -36,11 +36,11 @@ public class Questions implements Serializable{
         return image;
     }
 
-    private ArrayList<String> choices()
+    public ArrayList<String> getChoices()
     {
         return choices;
     }
-    private int getAnswer(){
+    public int getAnswer(){
         return answer;
     }
 

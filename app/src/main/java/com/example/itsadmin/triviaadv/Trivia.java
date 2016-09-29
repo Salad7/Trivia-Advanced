@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,15 +17,24 @@ import java.util.ArrayList;
 public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommuncateWithAsync{
 
     private TextView textTV;
-    private TextView idTV;
+    private Button idBtn;
     private ArrayList<Questions> details;
+    TextView choicesTV1;
+    TextView choicesTV2;
+    TextView choicesTV3;
+    TextView choicesTV4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        textTV = (TextView) findViewById(R.id.text);
-        idTV = (TextView) findViewById(R.id.id);
+        setContentView(R.layout.activity_trivia);
+        textTV = (TextView) findViewById(R.id.question);
+        idBtn = (Button) findViewById(R.id.qid);
+        choicesTV1 = (TextView) findViewById(R.id.choice1);
+        choicesTV2 = (TextView) findViewById(R.id.choice2);
+        choicesTV3 = (TextView) findViewById(R.id.choice3);
+        choicesTV4 = (TextView) findViewById(R.id.choice4);
+
 
 
 
@@ -57,6 +67,13 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     {
         details = result;
         textTV.setText(result.get(0).getText());
-        idTV.setText(result.get(0).getId()+"");
+        idBtn.setText("Q"+result.get(0).getId());
+        //for(int i = 0; i < 4; i++)
+        //{
+            choicesTV1.setText(result.get(0).getChoices().get(0));
+        choicesTV1.setText(result.get(0).getChoices().get(1));
+        choicesTV1.setText(result.get(0).getChoices().get(2));
+        choicesTV1.setText(result.get(0).getChoices().get(3));
+        //}
     }
 }

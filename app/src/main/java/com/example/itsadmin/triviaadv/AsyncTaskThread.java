@@ -34,16 +34,21 @@ public class AsyncTaskThread extends AsyncTask<String, Void, String> {
             StringBuilder sb = new StringBuilder();
             URL url = new URL(params[0]);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            //con.setRequestMethod("GET");
-            //con.getInputStream(); //Opens connection
-            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String line = "";
-            while((line = reader.readLine())!= null)
-            {
-                sb.append(line+"\n");
+            con.setRequestMethod("GET");
+            con.connect();
+            int statusCode = con.getResponseCode();
+            if(statusCode == HttpURLConnection.HTTP_OK){
+                
             }
-            reader.close();
-            return  sb.toString();
+            //con.getInputStream(); //Opens connection
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            //String line = "";
+            //while((line = reader.readLine())!= null)
+            //{
+              //  sb.append(line+"\n");
+            //}
+            //reader.close();
+            //return  sb.toString();
         } catch (Exception e){
             e.printStackTrace();
         }

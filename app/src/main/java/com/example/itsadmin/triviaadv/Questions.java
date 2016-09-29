@@ -1,5 +1,8 @@
 package com.example.itsadmin.triviaadv;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+
 import java.util.ArrayList;
 
 /**
@@ -11,6 +14,7 @@ public class Questions {
     private String text;
     private ArrayList<String> choices;
     private int answer;
+    private Bitmap image;
 
     Questions() {
 
@@ -24,6 +28,11 @@ public class Questions {
     public String getText()
     {
         return text;
+    }
+
+    public Bitmap getImage()
+    {
+        return image;
     }
 
     private ArrayList<String> choices()
@@ -47,5 +56,10 @@ public class Questions {
     public void setChoices(ArrayList<String> choices)
     {
         this.choices = choices;
+    }
+
+    public void setImage(Bitmap b)
+    {
+        return image;
     }
 }

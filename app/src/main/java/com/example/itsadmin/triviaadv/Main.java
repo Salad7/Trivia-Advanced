@@ -1,5 +1,6 @@
 package com.example.itsadmin.triviaadv;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import org.w3c.dom.Text;
 import java.net.*;
 import java.util.ArrayList;
 
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements AsyncTaskThread.ICommuncateWithAsync {
 
   private TextView textTV;
     private TextView idTV;
@@ -32,10 +33,9 @@ public class Main extends AppCompatActivity {
 
         //Accessing the internet
         Log.d("TAG","Are you connected? "+isConnectedOnline());
-       new AsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+       new AsyncTaskThread(this).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
 
-        //textTV.setText(AsyncTaskThread.details.get(0).getText());
-        idTV.setText(QuestionsJSONParserUtil.d.get(0).getId());
+
     }
     //Check connection to internet
     private boolean isConnectedOnline(){
@@ -46,5 +46,17 @@ public class Main extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public Context getContext(){
+        return this;
+    }
+
+    @Override
+    public void sendData(ArrayList<Questions> result)
+    {
+        details = result;
+        textTV.setText(result.get(0).getText());
+        idTV.setText(result.get(0).getId());
     }
 }

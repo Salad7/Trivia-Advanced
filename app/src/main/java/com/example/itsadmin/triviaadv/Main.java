@@ -57,6 +57,6 @@ public class Main extends AppCompatActivity implements AsyncTaskThread.ICommunca
     {
         details = result;
         textTV.setText(result.get(0).getText());
-        idTV.setText(result.get(0).getId());
+        idTV.setText(result.get(0).getId()+"");
     }
 }

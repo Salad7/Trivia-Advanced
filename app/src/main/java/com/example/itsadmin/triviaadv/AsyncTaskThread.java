@@ -76,6 +76,8 @@ public class AsyncTaskThread extends AsyncTask<String, Void, ArrayList<Questions
     @Override
     protected void onPostExecute(ArrayList<Questions> questionses) {
         super.onPostExecute(questionses);
+        progressDialog.dismiss();
+        mContext.sendData(questionses);
 
     }
 

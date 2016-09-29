@@ -22,6 +22,7 @@ public class QuestionsJSONParserUtil {
             Questions question = new Questions();
             question.setText(questionJSONObject.getString("text"));
             question.setId(questionJSONObject.getInt("id"));
+            questionList.add(question);
             //question.setImage(questionJSONObject.get("image"));
             //question.setChoices(questionJSONObject.get("choices"));
         }

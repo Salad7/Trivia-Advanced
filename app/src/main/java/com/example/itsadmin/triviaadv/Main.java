@@ -33,7 +33,7 @@ public class Main extends AppCompatActivity implements AsyncTaskThread.ICommunca
 
         //Accessing the internet
         Log.d("TAG","Are you connected? "+isConnectedOnline());
-       new AsyncTaskThread(this).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+      // new AsyncTaskThread(this).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
 
 
     }
@@ -55,8 +55,8 @@ public class Main extends AppCompatActivity implements AsyncTaskThread.ICommunca
     @Override
     public void sendData(ArrayList<Questions> result)
     {
-        details = result;
-        textTV.setText(result.get(0).getText());
-        idTV.setText(result.get(0).getId()+"");
+       // details = result;
+        //textTV.setText(result.get(0).getText());
+        //idTV.setText(result.get(0).getId()+"");
     }
 }

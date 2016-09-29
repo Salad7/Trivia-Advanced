@@ -1,5 +1,6 @@
 package com.example.itsadmin.triviaadv;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -11,19 +12,22 @@ import java.util.ArrayList;
  * Created by itsadmin on 9/29/2016.
  */
 public class QuestionsJSONParserUtil {
+    public static Context dlConext;
 
-    static ArrayList<Questions> questionList = new ArrayList<>();
     static ArrayList<Questions> parseQuestions(String in) throws Exception {
 
 
         JSONObject root = new JSONObject(in);
-        Questions question = new Questions();
+        Questions question;
+        ArrayList<Questions> questionList;
+
 
 
         JSONArray questionsJSONArray = root.getJSONArray("questions");
 
-
+        questionList = new ArrayList<>();
         for (int i = 0; i < questionsJSONArray.length(); i++) {
+            question = new Questions();
             JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
             JSONObject choices = questionJSONObject.getJSONObject("choices");
             JSONArray choice = choices.getJSONArray("choice");
@@ -31,7 +35,10 @@ public class QuestionsJSONParserUtil {
             question.setText(questionJSONObject.getString("text"));
             question.setId(questionJSONObject.getInt("id"));
             if(questionJSONObject.has("image"))
+                //new DownloadImageAsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
                 question.setImage(questionJSONObject.getString("image"));
+
+                //Log.d("Image link",questionJSONObject.getString("image").toString());
 
             String[] choicesArray = choice.toString().substring(1,(choice.toString()).length()-1).replace("},{", ",").split(",");
             for(int j = 0; j < choicesArray.length; j++) {
@@ -43,49 +50,18 @@ public class QuestionsJSONParserUtil {
 
             question.setAnswer(choices.getString("answer"));
 
-            Log.d("Number",question.getText());
+           // Log.d("Number",question.getText());
             questionList.add(question);
-
+           // Log.d("text is " ,questionList.get(i).getText());
 
         }
-        Log.d("",questionList.get(5).getText());
     return questionList;
 
 
 }
 
 
-/**
-        JSONObject root = new JSONObject(in);
-        JSONArray questionsJSONArray = root.getJSONArray("questions");
-        //We need to break the array down to object, like questions
 
-        //Doesnt like choices for some reason
-        //JSONArray choice = root.getJSONArray("questions");
-
-        for(int i = 0; i < questionsJSONArray.length(); i++)
-        {
-            JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
-            Questions question = new Questions();
-            question.setText(questionJSONObject.getString("text"));
-            question.setId(questionJSONObject.getInt("id"));
-
-            JSONArray jsonArray = questionJSONObject.getJSONArray("choice");
-            for(int x = 0; x < jsonArray.length(); x ++){
-                JSONObject choiceJSONObject = jsonArray.getJSONObject(x);
-            //    temp.add(choiceJSONObject.getString("choices").toString());
-            }
-
-
-
-            //question.setChoices(temp);
-            questionList.add(question);
-            //question.setImage(questionJSONObject.get("image"));
-            //question.setChoices(questionJSONObject.get("choices"));
-        }
-        return questionList;
-
- **/
     }
 
 

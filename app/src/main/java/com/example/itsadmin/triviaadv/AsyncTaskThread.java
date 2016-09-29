@@ -87,8 +87,10 @@ public class AsyncTaskThread extends AsyncTask<String, Void, ArrayList<Questions
         super.onProgressUpdate(values);
     }
 
-    public static interface ICommuncateWithAsync{
+    static public interface ICommuncateWithAsync{
         public Context getContext();
         public void sendData(ArrayList<Questions> result);
     }
+
+
 }

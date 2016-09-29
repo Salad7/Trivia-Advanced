@@ -1,9 +1,11 @@
 package com.example.itsadmin.triviaadv;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by itsadmin on 9/29/2016.
  */
-public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommuncateWithAsync{
+public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommuncateWithAsync, DownloadImageAsyncTaskThread.ICommuncateWithImage{
 
     private TextView textTV;
     private Button idBtn;
@@ -26,7 +28,9 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     private TextView choicesTV3;
     private  TextView choicesTV4;
     private ImageView iv;
-    private int questionNum;
+    public int questionNum;
+    private Bitmap bmap;
+    private Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
         choicesTV3 = (TextView) findViewById(R.id.choice3);
         choicesTV4 = (TextView) findViewById(R.id.choice4);
         iv = (ImageView) findViewById(R.id.imageView);
+        next = (Button) findViewById(R.id.button2) ;
         questionNum = 0;
 
 
@@ -71,9 +76,11 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     @Override
     public void sendData(ArrayList<Questions> result)
     {
+        Log.d("MAX",result.get(0).getText());
         details = result;
         textTV.setText(result.get(questionNum).getText());
-        idBtn.setText("Q"+result.get(questionNum).getId());
+        idBtn.setText("Q"+result.get(0).getId());
+        iv = (ImageView) findViewById(R.id.imageView);
         //for(int i = 0; i < 4; i++) {
             choicesTV1.setText(result.get(questionNum).getChoices()[0]);
                 choicesTV1.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +103,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
 
                 }
             });
-            choicesTV4.setText(result.get(questionNum).getChoices()[3]);
+            choicesTV4.setText(result.get(0).getChoices()[3]);
             choicesTV4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,8 +111,22 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
                 }
             });
 
-        iv.setImageBitmap(result.get(questionNum).getImage());
-        }
+        //iv = new DownloadImageAsyncTaskThread(this).execute();
 
-    //}
+        //
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionNum++;
+            }
+        });
+
+
+    }
+    @Override
+    public void sendImage(Bitmap result){
+        bmap = result;
+        iv.setImageBitmap(result);
+    }
 }

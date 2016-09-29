@@ -1,5 +1,6 @@
 package com.example.itsadmin.triviaadv;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
 
@@ -15,7 +16,7 @@ public class Questions implements Serializable{
     private String text;
     private String[] choices;
     private String answer;
-    private Bitmap image;
+    private String image;
 
     Questions() {
 
@@ -31,7 +32,7 @@ public class Questions implements Serializable{
         return text;
     }
 
-    public Bitmap getImage()
+    public String getImage()
     {
         return image;
     }
@@ -65,6 +66,7 @@ public class Questions implements Serializable{
 
     public void setImage(String parseImage)
     {
-         //image = b;
+         image = parseImage;
+
     }
 }

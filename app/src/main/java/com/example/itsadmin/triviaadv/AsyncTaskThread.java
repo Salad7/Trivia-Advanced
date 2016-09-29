@@ -38,7 +38,14 @@ public class AsyncTaskThread extends AsyncTask<String, Void, String> {
             con.connect();
             int statusCode = con.getResponseCode();
             if(statusCode == HttpURLConnection.HTTP_OK){
-                
+                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String line = "";
+                while((line = reader.readLine())!= null)
+                {
+                  sb.append(line+"\n");
+                }
+                reader.close();
+                return  sb.toString();
             }
             //con.getInputStream(); //Opens connection
             //BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));

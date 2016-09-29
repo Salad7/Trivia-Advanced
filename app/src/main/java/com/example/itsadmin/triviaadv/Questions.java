@@ -60,6 +60,6 @@ public class Questions {
 
     public void setImage(Bitmap b)
     {
-        return image;
+         image = b;
     }
 }

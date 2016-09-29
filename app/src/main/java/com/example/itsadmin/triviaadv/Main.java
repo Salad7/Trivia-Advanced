@@ -20,7 +20,7 @@ public class Main extends AppCompatActivity {
 
         //Accessing the internet
         Log.d("TAG","Are you connected? "+isConnectedOnline());
-        ArrayList<Questions> questionList = new AsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+        Questions questionList = new AsyncTaskThread().execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
 
 
     }

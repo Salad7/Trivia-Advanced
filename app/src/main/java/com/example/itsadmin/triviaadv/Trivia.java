@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     private TextView choicesTV2;
     private TextView choicesTV3;
     private  TextView choicesTV4;
+    private int questionNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
         choicesTV2 = (TextView) findViewById(R.id.choice2);
         choicesTV3 = (TextView) findViewById(R.id.choice3);
         choicesTV4 = (TextView) findViewById(R.id.choice4);
+        questionNum = 0;
 
 
 
@@ -68,12 +71,35 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
         details = result;
         textTV.setText(result.get(0).getText());
         idBtn.setText("Q"+result.get(0).getId());
-        //for(int i = 0; i < 4; i++)
-        //{
-        //choicesTV1.setText(result.get(0).getChoices().get(0));
-        //choicesTV1.setText(result.get(0).getChoices().get(1));
-        //choicesTV1.setText(result.get(0).getChoices().get(2));
-        //choicesTV1.setText(result.get(0).getChoices().get(3));
-        //}
+        for(int i = 0; i < 4; i++) {
+            choicesTV1.setText(result.get(0).getChoices()[0]);
+                choicesTV1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            choicesTV2.setText(result.get(0).getChoices()[1]);
+            choicesTV1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            choicesTV3.setText(result.get(0).getChoices()[2]);
+            choicesTV1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            choicesTV4.setText(result.get(0).getChoices()[3]);
+            choicesTV1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
 }

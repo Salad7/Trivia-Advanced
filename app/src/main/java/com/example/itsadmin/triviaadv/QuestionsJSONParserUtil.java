@@ -11,11 +11,44 @@ import java.util.ArrayList;
 public class QuestionsJSONParserUtil {
 
 
-    static ArrayList<Questions> parseQuestions(String in) throws Exception{
+    static ArrayList<Questions> parseQuestions(String in) throws Exception {
         ArrayList<Questions> questionList = new ArrayList<Questions>();
-        ArrayList<String>  temp = new ArrayList<String>();
-        String choice;
 
+        JSONObject root = new JSONObject(in);
+        Questions question = new Questions();
+
+
+        JSONArray questionsJSONArray = root.getJSONArray("questions");
+
+
+        for (int i = 0; i < questionsJSONArray.length(); i++) {
+            JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
+            JSONObject choices = questionJSONObject.getJSONObject("choices");
+            JSONArray choice = choices.getJSONArray("choice");
+
+            question.setText(questionJSONObject.getString("text"));
+            question.setId(questionJSONObject.getInt("id"));
+            String[] choicesArray = choice.toString().substring(1,(choice.toString()).length()-1).replace("},{", ",").split(",");
+            for(int j = 0; j < choicesArray.length; j++) {
+                choicesArray[j] = choicesArray[j].substring(1,choicesArray[j].length()-1);
+            }
+            question.setChoices(choicesArray);
+            question.setAnswer(choices.getString("answer"));
+
+
+           // question.setChoices(root.optString("choices"));
+            questionList.add(question);
+            //question.setImage(questionJSONObject.get("image"));
+            //question.setChoices(questionJSONObject.get("choices"));
+        }
+
+    return questionList;
+
+
+}
+
+
+/**
         JSONObject root = new JSONObject(in);
         JSONArray questionsJSONArray = root.getJSONArray("questions");
         //We need to break the array down to object, like questions
@@ -30,10 +63,11 @@ public class QuestionsJSONParserUtil {
             question.setText(questionJSONObject.getString("text"));
             question.setId(questionJSONObject.getInt("id"));
 
-            //for(int x = 0; x < choices.length(); x ++){
-              //  JSONObject choiceJSONObject = choices.getJSONObject(x);
-                //temp.add(choiceJSONObject.getString("choice"));
-            //}
+            JSONArray jsonArray = questionJSONObject.getJSONArray("choice");
+            for(int x = 0; x < jsonArray.length(); x ++){
+                JSONObject choiceJSONObject = jsonArray.getJSONObject(x);
+            //    temp.add(choiceJSONObject.getString("choices").toString());
+            }
 
 
 
@@ -43,10 +77,12 @@ public class QuestionsJSONParserUtil {
             //question.setChoices(questionJSONObject.get("choices"));
         }
         return questionList;
+
+ **/
     }
 
 
 
 
 
-}
+

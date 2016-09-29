@@ -13,8 +13,8 @@ public class Questions implements Serializable{
 
     private int id;
     private String text;
-    private ArrayList<String> choices;
-    private int answer;
+    private String[] choices;
+    private String answer;
     private Bitmap image;
 
     Questions() {
@@ -35,12 +35,14 @@ public class Questions implements Serializable{
     {
         return image;
     }
-
-    public ArrayList<String> getChoices()
+    public void setAnswer(String b){
+        answer = b;
+    }
+    public String[] getChoices()
     {
         return choices;
     }
-    public int getAnswer(){
+    public String getAnswer(){
         return answer;
     }
 
@@ -54,8 +56,10 @@ public class Questions implements Serializable{
         this.text = text;
     }
 
-    public void setChoices(ArrayList<String> choices)
+    public void setChoices(String[] choices) throws Exception
     {
+        //pass in choices
+
         this.choices = choices;
     }
 

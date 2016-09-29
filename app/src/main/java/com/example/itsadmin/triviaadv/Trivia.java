@@ -19,10 +19,10 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
     private TextView textTV;
     private Button idBtn;
     private ArrayList<Questions> details;
-    TextView choicesTV1;
-    TextView choicesTV2;
-    TextView choicesTV3;
-    TextView choicesTV4;
+    private TextView choicesTV1;
+    private TextView choicesTV2;
+    private TextView choicesTV3;
+    private  TextView choicesTV4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +70,10 @@ public class Trivia extends AppCompatActivity implements AsyncTaskThread.ICommun
         idBtn.setText("Q"+result.get(0).getId());
         //for(int i = 0; i < 4; i++)
         //{
-            choicesTV1.setText(result.get(0).getChoices().get(0));
-        choicesTV1.setText(result.get(0).getChoices().get(1));
-        choicesTV1.setText(result.get(0).getChoices().get(2));
-        choicesTV1.setText(result.get(0).getChoices().get(3));
+        //choicesTV1.setText(result.get(0).getChoices().get(0));
+        //choicesTV1.setText(result.get(0).getChoices().get(1));
+        //choicesTV1.setText(result.get(0).getChoices().get(2));
+        //choicesTV1.setText(result.get(0).getChoices().get(3));
         //}
     }
 }

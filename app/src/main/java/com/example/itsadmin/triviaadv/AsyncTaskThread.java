@@ -41,6 +41,7 @@ public class AsyncTaskThread extends AsyncTask<String, Void, ArrayList<Questions
         try {
             //Arraylist of a strings
             StringBuilder sb = new StringBuilder();
+            StringBuilder ch = new StringBuilder();
             URL url = new URL(params[0]);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
